@@ -26,12 +26,19 @@ function Formulario({ onSubmit }) {
       return
     }
 
-    api.post('/checklist', {
-        nome: nome,
-        valor: valor,
-        serial_number: serialNumber,
-        observacao: observacao,
-      })
+  const data = new FormData()
+  data.append('nome', nome)
+  data.append('valor', valor)
+  data.append('serial_number', serialNumber)
+  data.append('observacao', observacao)
+
+  const config = {
+    headers: {
+      'Content-Type': 'multipart/form-data',
+    },
+  }
+
+    api.post('/checklist', data, config)
       .then((response) => {
         console.log(response)
         onSubmit();
